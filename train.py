@@ -70,7 +70,7 @@ def main(args):
         checkpoint = torch.load(os.path.join(
             hp.checkpoint_path, 'checkpoint_%d.pth.tar' % args.restore_step))
         model.load_state_dict(checkpoint['model'])
-        optimizer.load_state_dict(checkpoint['optimizer'])
+        # optimizer.load_state_dict(checkpoint['optimizer'])
         print("---Model Restored at Step %d---\n" % args.restore_step)
 
     except:
@@ -87,6 +87,7 @@ def main(args):
 
     total_step = hp.epochs * len(training_loader)
     # current_lr = 0.0
+    # print(optimizer.param_groups[0]['lr'])
     Time = np.array(list())
     Start = time.clock()
 
@@ -276,6 +277,6 @@ if __name__ == "__main__":
     # Main
     parser = argparse.ArgumentParser()
     parser.add_argument('--restore_step', type=int,
-                        help='checkpoint', default=0)
+                        help='checkpoint', default=8200)
     args = parser.parse_args()
     main(args)
